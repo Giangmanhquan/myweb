@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trang chia sẻ tài nguyên</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    iframe {
+      border-radius: 12px;
+      margin: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -40,6 +47,10 @@
         <div class="card">
           <h3>🎬 Video học tập</h3>
           <div id="video-container"></div>
+
+          <!-- 🔴 Video YouTube nhúng -->
+          <h4>📺 Video YouTube</h4>
+          <div id="youtube-container"></div>
         </div>
 
         <!-- Tài liệu -->
@@ -84,6 +95,12 @@
     const videos = ["video1.mp4", "video2.mp4", "video3.mp4"];
     const docs   = ["tailieu1.pdf", "tailieu2.docx", "tailieu3.txt"];
 
+    // 🟥 Thêm danh sách video YouTube (chỉ cần ID hoặc link)
+    const youtubeVideos = [
+      "https://www.youtube.com/embed/A9N2DX8fuYI",
+      "https://www.youtube.com/embed/quwhAQioS8g"
+    ];
+
     // Hiển thị ảnh
     const imageContainer = document.getElementById("image-container");
     images.forEach(file => {
@@ -95,7 +112,7 @@
       imageContainer.appendChild(img);
     });
 
-    // Hiển thị video
+    // Hiển thị video trong thư mục assets
     const videoContainer = document.getElementById("video-container");
     videos.forEach(file => {
       const video = document.createElement("video");
@@ -104,6 +121,18 @@
       video.width = 300;
       video.style.margin = "8px";
       videoContainer.appendChild(video);
+    });
+
+    // Hiển thị video YouTube nhúng
+    const youtubeContainer = document.getElementById("youtube-container");
+    youtubeVideos.forEach(link => {
+      const iframe = document.createElement("iframe");
+      iframe.src = link;
+      iframe.width = "320";
+      iframe.height = "180";
+      iframe.allowFullscreen = true;
+      iframe.frameBorder = "0";
+      youtubeContainer.appendChild(iframe);
     });
 
     // Hiển thị tài liệu
