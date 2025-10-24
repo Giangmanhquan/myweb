@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chia sẻ tài nguyên</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📚 Kho Tài Nguyên Của Tôi</h1>
+    <nav>
+      <a href="#home">Trang chủ</a>
+      <a href="#gallery">Thư viện</a>
+      <a href="#about">Giới thiệu</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Trang chủ -->
+    <section id="home">
+      <h2>Chào mừng bạn đến với kho tài nguyên!</h2>
+      <p>Tại đây bạn có thể xem và tải xuống các <strong>tài liệu, hình ảnh, video</strong> hữu ích.</p>
+    </section>
+
+    <!-- Thư viện -->
+    <section id="gallery">
+      <h2>Thư viện</h2>
+
+      <div class="grid">
+
+        <!-- Hình ảnh -->
+        <div class="card">
+          <h3>📷 Hình ảnh</h3>
+          <div id="image-container"></div>
+        </div>
+
+        <!-- Video -->
+        <div class="card">
+          <h3>🎬 Video học tập</h3>
+          <div id="video-container"></div>
+        </div>
+
+        <!-- Tài liệu -->
+        <div class="card">
+          <h3>📄 Tài liệu</h3>
+          <div id="doc-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cho phép chọn file -->
+    <form>
+      <input type="file" id="fileInput" name="files" multiple accept="image/*,video/*,application/pdf">
+    </form>
+
+    <!-- Giới thiệu -->
+    <section id="about">
+      <h2>Giới thiệu</h2>
+      <p>Tôi là người yêu thích chia sẻ kiến thức và nội dung sáng tạo. Trang này được xây dựng để lưu trữ và chia sẻ mọi thứ tôi học được.</p>
+    </section>
+
+    <!-- Liên hệ -->
+    <section id="contact">
+      <h2>Liên hệ</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Tên của bạn" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Lời nhắn..." required></textarea>
+        <button type="submit">Gửi</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>©copyright - Mạnh Quân ❤️</p>
+  </footer>
+
+  <!-- JavaScript tự động tạo danh sách -->
+  <script>
+    // Danh sách file (bạn chỉ cần điền tên file, không cần thẻ HTML)
+    const images = ["anh1.jpg", "anh2.png", "anh3.jpeg"];
+    const videos = ["video1.mp4", "video2.mp4", "video3.mp4"];
+    const docs   = ["tailieu1.pdf", "tailieu2.docx", "tailieu3.txt"];
+
+    // Hiển thị ảnh
+    const imageContainer = document.getElementById("image-container");
+    images.forEach(file => {
+      const img = document.createElement("img");
+      img.src = `assets/images/${file}`;
+      img.alt = file;
+      img.width = 200;
+      img.style.margin = "8px";
+      imageContainer.appendChild(img);
+    });
+
+    // Hiển thị video
+    const videoContainer = document.getElementById("video-container");
+    videos.forEach(file => {
+      const video = document.createElement("video");
+      video.src = `assets/videos/${file}`;
+      video.controls = true;
+      video.width = 300;
+      video.style.margin = "8px";
+      videoContainer.appendChild(video);
+    });
+
+    // Hiển thị tài liệu
+    const docContainer = document.getElementById("doc-container");
+    docs.forEach(file => {
+      const link = document.createElement("a");
+      link.href = `assets/docs/${file}`;
+      link.textContent = file;
+      link.target = "_blank";
+      link.style.display = "block";
+      link.style.margin = "5px 0";
+      docContainer.appendChild(link);
+    });
+  </script>
+</body>
+</html>
