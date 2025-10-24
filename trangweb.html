@@ -6,10 +6,135 @@
   <title>Trang chia sẻ tài nguyên</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    iframe {
+    /* 🟦 Tổng thể */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fafafa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0066cc;
+      color: white;
+      padding: 15px 10px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 5px 0;
+      font-size: 1.4rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.2);
+      font-size: 0.9rem;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.4);
+    }
+
+    main {
+      padding: 15px;
+    }
+
+    h2 {
+      color: #0066cc;
+      margin-top: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 12px;
       border-radius: 12px;
-      margin: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 🟨 Ảnh và video hiển thị tốt trên di động */
+    img, video, iframe {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 8px 0;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    iframe {
+      aspect-ratio: 16 / 9;
+      border: none;
+    }
+
+    form {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #0066cc;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0052a3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 12px;
+      background: #0066cc;
+      color: white;
+      margin-top: 20px;
+    }
+
+    /* 🟢 Responsive (tùy chỉnh nhỏ cho điện thoại) */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.2rem;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+      }
+
+      .card h3 {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -25,35 +150,27 @@
   </header>
 
   <main>
-    <!-- Trang chủ -->
     <section id="home">
       <h2>Chào mừng bạn đến với kho tài nguyên!</h2>
       <p>Tại đây bạn có thể xem và tải xuống các <strong>tài liệu, hình ảnh, video</strong> hữu ích.</p>
     </section>
 
-    <!-- Thư viện -->
     <section id="gallery">
       <h2>Thư viện</h2>
-
       <div class="grid">
-
-        <!-- Hình ảnh -->
         <div class="card">
           <h3>📷 Hình ảnh</h3>
           <div id="image-container"></div>
         </div>
 
-        <!-- Video -->
         <div class="card">
           <h3>🎬 Video học tập</h3>
           <div id="video-container"></div>
 
-          <!-- 🔴 Video YouTube nhúng -->
           <h4>📺 Video YouTube</h4>
           <div id="youtube-container"></div>
         </div>
 
-        <!-- Tài liệu -->
         <div class="card">
           <h3>📄 Tài liệu</h3>
           <div id="doc-container"></div>
@@ -61,18 +178,15 @@
       </div>
     </section>
 
-    <!-- Cho phép chọn file -->
     <form>
       <input type="file" id="fileInput" name="files" multiple accept="image/*,video/*,application/pdf">
     </form>
 
-    <!-- Giới thiệu -->
     <section id="about">
       <h2>Giới thiệu</h2>
       <p>Tôi là người yêu thích chia sẻ kiến thức và nội dung sáng tạo. Trang này được xây dựng để lưu trữ và chia sẻ mọi thứ tôi học được.</p>
     </section>
 
-    <!-- Liên hệ -->
     <section id="contact">
       <h2>Liên hệ</h2>
       <form id="contactForm">
@@ -88,54 +202,40 @@
     <p>©copyright - Mạnh Quân ❤️</p>
   </footer>
 
-  <!-- JavaScript tự động tạo danh sách -->
   <script>
-    // Danh sách file (bạn chỉ cần điền tên file, không cần thẻ HTML)
     const images = ["anh1.jpg", "anh2.png", "anh3.jpeg"];
     const videos = ["video1.mp4", "video2.mp4", "video3.mp4"];
     const docs   = ["tailieu1.pdf", "tailieu2.docx", "tailieu3.txt"];
-
-    // 🟥 Thêm danh sách video YouTube (chỉ cần ID hoặc link)
     const youtubeVideos = [
       "https://www.youtube.com/embed/A9N2DX8fuYI",
       "https://www.youtube.com/embed/quwhAQioS8g"
     ];
 
-    // Hiển thị ảnh
     const imageContainer = document.getElementById("image-container");
     images.forEach(file => {
       const img = document.createElement("img");
       img.src = `assets/images/${file}`;
       img.alt = file;
-      img.width = 200;
-      img.style.margin = "8px";
       imageContainer.appendChild(img);
     });
 
-    // Hiển thị video trong thư mục assets
     const videoContainer = document.getElementById("video-container");
     videos.forEach(file => {
       const video = document.createElement("video");
       video.src = `assets/videos/${file}`;
       video.controls = true;
-      video.width = 300;
-      video.style.margin = "8px";
       videoContainer.appendChild(video);
     });
 
-    // Hiển thị video YouTube nhúng
     const youtubeContainer = document.getElementById("youtube-container");
     youtubeVideos.forEach(link => {
       const iframe = document.createElement("iframe");
       iframe.src = link;
-      iframe.width = "320";
-      iframe.height = "180";
       iframe.allowFullscreen = true;
       iframe.frameBorder = "0";
       youtubeContainer.appendChild(iframe);
     });
 
-    // Hiển thị tài liệu
     const docContainer = document.getElementById("doc-container");
     docs.forEach(file => {
       const link = document.createElement("a");
